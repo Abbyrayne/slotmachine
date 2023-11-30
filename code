@@ -1,0 +1,86 @@
+import java.util.Scanner;
+public class App {
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("You have ten tokens"); 
+        int quit = 1; //starts at 1 so the while loop will start without setting it to true
+        int tokens = 10;//starter tokens
+        //double randnum[] = {3.0, 3.0, 7.0}; This line tested all instances
+        while(quit == 1)
+        {
+          playerquit(); //method I created for when the player wants to quit
+          Scanner scanner = new Scanner(System.in);
+          quit = scanner.nextInt();
+          while(true) //this while loop prevents someone from putting in invalid input
+          {
+            if(quit ==1 || quit == 2)
+            {
+              break;
+            }
+            else
+            {
+              System.out.println("invalid input. try again");
+            playerquit(); //method I created for when the player wants to quit
+            }
+            quit = scanner.nextInt();
+          }
+          double[] randnum = spin(); //randnum stands for random number
+          System.out.println(randnum[0] + " " + randnum[1] + " " + randnum[2]); //array index starts at 0 and not 1
+      if(randnum[0] == 7 && randnum[1] == 7 && randnum[2] == 7)
+       {
+        tokens = tokens + 500;
+        System.out.println("You won 500 points!");
+        System.out.println("You now have " + tokens + " tokens");        
+       }
+      else if(randnum[0] == randnum[1] && randnum[1] == randnum[2])
+       {
+        tokens = tokens + 50;
+        System.out.println("You won 50 tokens");
+        System.out.println("You now have " + tokens + " tokens");
+       }
+      else if(randnum[0] == 7 && randnum [1] == 7 || randnum[1] == 7 && randnum[2] == 7 || randnum[0] == 7 && randnum[2] == 7)
+        {
+        tokens = tokens + 15;
+        System.out.println("You won 15 tokens");
+        System.out.println("You now have " + tokens + " tokens");
+       }
+      else if(randnum[0] == randnum[1] || randnum[1] == randnum[2] || randnum[0] == randnum[2])
+       {
+        tokens = tokens + 3;
+        System.out.println("You won 3 tokens");
+        System.out.println("You now have " + tokens + " tokens");
+       }
+      else 
+       {
+        tokens--;
+        System.out.println("You lost 1 token");
+        System.out.println("You now have " + tokens + " tokens");
+       }
+      if(tokens <= 0)
+       {
+        playerlose(); // player loses if they lose all their tokens
+        break; //stops the code from repeating again
+       }
+    }
+  }
+    private static double[] spin() //this method is to make random numbers
+    {
+        // this line makes the numbers in the array random
+        double[] randnum = new double[3];
+        for(int i = 0; i < 3; i++)
+        {
+            randnum[i] = Math.floor(Math.random()*10)+1;
+        // your line 31 used to be here it caused the bug
+        }
+        return randnum;
+    }
+    private static void playerquit()
+    {
+      System.out.println("hit 1 to play or 2 to quit");
+    }
+    private static void playerlose()
+    {
+      System.out.println("loser");
+    }
+
+    }
